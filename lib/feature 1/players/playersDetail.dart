@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nba_players/feature%201/model/nba_model.dart';
 
 class PlayersDetail extends StatefulWidget {
@@ -84,7 +85,14 @@ class PlayersDetailState extends State<PlayersDetail> {
                             child: TextButton.icon(
                               icon: Icon(Icons.star_outline),
                               label: Text("Favourte"),
-                              onPressed: () {},
+                              onPressed: () {
+                                Fluttertoast.showToast(
+                                    msg: "${players.firstName}",
+                                    toastLength: Toast.LENGTH_LONG,
+                                    gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1
+                                );
+                              },
                               style: TextButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20)),
@@ -98,7 +106,7 @@ class PlayersDetailState extends State<PlayersDetail> {
           ]),
           Column(
             children: [
-              Text("Career Stat"),
+              Text("Career Stats"),
               Padding(
                 padding: EdgeInsets.only(top: 20),
                 child: Row(
@@ -115,7 +123,24 @@ class PlayersDetailState extends State<PlayersDetail> {
                     child: statBox("APG", players.carrerAssists),
                   ),
                 ],
-              ),)
+              ),),
+              Padding(
+                  padding: EdgeInsets.only(top: 12),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 20, left: 20),
+                          child: Text(
+                            '${players.height} | ${players.weight} | ${players.age} years',
+                          ),
+                        )
+                    ),
+                  ],
+                ),
+              )
             ],
           )
         ],
@@ -141,7 +166,7 @@ class PlayersDetailState extends State<PlayersDetail> {
           ],
         ),
         decoration:
-            BoxDecoration(border: Border.all(color: Colors.black, width: 0.8)),
+            BoxDecoration(border: Border.all(color: Colors.grey, width: 0.8)),
       ),
     );
   }
